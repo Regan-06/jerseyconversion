@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Jersey Shed - Catalogue</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #0d1b2a;
+      color: white;
+      padding: 20px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
+    .header img {
+      width: 140px;
+    }
+
+    .header h1 {
+      font-size: 32px;
+      text-align: right;
+      color: #00e5ff;
+    }
+
+    .catalogue {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+    }
+
+    .product {
+      background: #122c4a;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,229,255,0.2);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease;
+    }
+
+    .product img {
+      width: 100%;
+      max-height: 360px;
+      object-fit: contain;
+      background-color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .product-info {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .product-info h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .product-info p {
+      font-size: 16px;
+      font-weight: bold;
+      color: #00e5ff;
+    }
+
+    .product-info select,
+    .product-info button {
+      margin-top: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .product-info select {
+      background: #f0f0f0;
+      color: #0d1b2a;
+      margin-bottom: 10px;
+    }
+
+    .product-info button {
+      background: #00e5ff;
+      color: #0d1b2a;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .product-info button:hover {
+      background: #00bcd4;
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .header h1 {
+        text-align: left;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img src="https://i.ibb.co/xtdjnBhk/e6f66627-8074-410a-a7d9-086a0c6fabdf.png" alt="The Jersey Shed Logo" />
+    <h1>NRL Jersey Catalogue</h1>
+  </div>
+
+  <div class="catalogue">
+
+    <div class="product">
+      <img src="https://www.dynastysport.co.nz/cdn/shop/files/2025_NZ_WARRIORS_MENS_REPLICA_PASIFIKA_JERSEY_-_SEAFOAM_NWJRM25511_front_edit.jpg?v=1733378182" alt="Warriors 2025 Pasifika Jersey" />
+      <div class="product-info">
+        <h2>Warriors 2025 Pasifika Jersey</h2>
+        <p>$149.99</p>
+        <select>
+          <option value="">Select Size</option>
+          <option>S</option><option>M</option><option>L</option><option>XL</option><option>2XL</option><option>3XL</option>
+        </select>
+        <button onclick="alert('Added to cart!')">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://cdn11.bigcommerce.com/s-jyo1oun1ul/images/stencil/1280x1280/products/1585/4127/Warriors_1998_Front__61660.1722900159.png?c=2" alt="Warriors 1998 Retro Jersey" />
+      <div class="product-info">
+        <h2>Warriors 1998 Retro Jersey</h2>
+        <p>$159.99</p>
+        <select>
+          <option value="">Select Size</option>
+          <option>S</option><option>M</option><option>L</option><option>XL</option><option>2XL</option><option>3XL</option>
+        </select>
+        <button onclick="alert('Added to cart!')">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://www.dynastysport.co.nz/cdn/shop/files/2025NZWARRIORSMENSREPLICADEARWARRIORJERSEY-BLACK_NWJRM25506_front.jpg?v=1746052072" alt="Warriors 2025 Dear Warrior Jersey" />
+      <div class="product-info">
+        <h2>Warriors 2025 Dear Warrior Jersey</h2>
+        <p>$149.99</p>
+        <select>
+          <option value="">Select Size</option>
+          <option>S</option><option>M</option><option>L</option><option>XL</option><option>2XL</option><option>3XL</option>
+        </select>
+        <button onclick="alert('Added to cart!')">Add to Cart</button>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+

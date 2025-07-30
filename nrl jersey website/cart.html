@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shopping Cart - The Jersey Shed</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0d1b2a;
+      color: white;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00e5ff;
+      margin-bottom: 30px;
+    }
+
+    .cart {
+      max-width: 800px;
+      margin: auto;
+      background: #122c4a;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(0,229,255,0.2);
+      position: relative;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #00e5ff;
+      padding-bottom: 15px;
+    }
+
+    .item img {
+      width: 100px;
+      border-radius: 8px;
+      margin-right: 20px;
+    }
+
+    .item-info {
+      flex: 1;
+    }
+
+    .item-info h2 {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+    }
+
+    .item-info p {
+      margin: 4px 0;
+      color: #00e5ff;
+    }
+
+    .total {
+      text-align: right;
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 20px;
+      color: #00e5ff;
+    }
+
+    .buy-now {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: #00e5ff;
+      color: #0d1b2a;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .buy-now:hover {
+      background: #00bcd4;
+    }
+
+    .empty {
+      text-align: center;
+      font-size: 18px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Your Cart</h1>
+  <div class="cart" id="cart-container">
+    <p class="empty">Loading your cart...</p>
+  </div>
+
+  <script>
+    const cartContainer = document.getElementById('cart-container');
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    if (cart.length === 0) {
+      cartContainer.innerHTML = '<p class="empty">Your cart is empty.</p>';
+    } else {
+      let total = 0;
+      cartContainer.innerHTML = '';
+      cart.forEach(product => {
+        const item = document.createElement('div');
+        item.className = 'item';
+
+        item.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" />
+          <div class="item-info">
+            <h2>${product.name}</h2>
+            <p>Size: ${product.size}</p>
+            <p>$${product.price}</p>
+          </div>
+        `;
+
+        cartContainer.appendChild(item);
+        total += parseFloat(product.price);
+      });
+
+      const totalEl = document.createElement('div');
+      totalEl.className = 'total';
+      totalEl.textContent = `Total: $${total.toFixed(2)}`;
+      cartContainer.appendChild(totalEl);
+
+      const buyButton = document.createElement('button');
+      buyButton.className = 'buy-now';
+      buyButton.textContent = 'Buy Now';
+      buyButton.onclick = () => {
+        alert('Redirecting to payment gateway...');
+        // Replace with actual checkout logic
+      };
+      cartContainer.appendChild(buyButton);
+    }
+  </script>
+
+</body>
+</html>
+

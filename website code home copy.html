@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Jersey Shed</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background: #0d1b2a;
+      overflow: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(45deg, #003366, #006600, #8c001a, #330066, #003366);
+      background-size: 500% 500%;
+      animation: bgShift 12s ease infinite;
+      z-index: -1;
+    }
+
+    @keyframes bgShift {
+      0%, 100% { background-position: 0% 50%; }
+      50%      { background-position: 100% 50%; }
+    }
+
+    .logo {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 120px;
+      z-index: 10000;
+    }
+
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 1s ease;
+    }
+
+    .loader-logo {
+      width: 140px;
+      animation: spinBall 3s linear infinite;
+      filter: drop-shadow(0 0 15px rgba(0,229,255,0.6));
+      margin-top: 60px;
+    }
+
+    @keyframes spinBall {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      margin-top: 40px;
+      font-size: 90px;
+      color: white;
+      font-weight: 1000;
+      text-align: center;
+      line-height: 1.2;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+    }
+
+    .loading-text span {
+      display: block;
+      opacity: 0;
+      animation: popFadeIn 0.4s ease-out forwards;
+    }
+
+    #line1 { animation-delay: 0.3s; }
+    #line2 { animation-delay: 0.8s; }
+    #line3 { animation-delay: 1.3s; }
+
+    @keyframes popFadeIn {
+      0%   { opacity: 0; transform: scale(0.8) translateY(30px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .enter-button {
+      margin-top: 30px;
+      padding: 16px 40px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #0d1b2a;
+      background: #00e5ff;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,229,255,0.4);
+      transition: transform 0.3s ease, background 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .enter-button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+      transition: left 0.6s ease-in-out;
+    }
+
+    .enter-button:hover {
+      background: #00bcd4;
+      transform: scale(1.05);
+    }
+
+    .enter-button:hover::before {
+      left: 100%;
+    }
+
+    .hero-page {
+      display: none;
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+                  url('https://i.redd.it/f1kizjds1ew21.jpg') center/cover no-repeat;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      opacity: 0;
+      transition: opacity 1s ease;
+      display: flex;
+    }
+
+    body.show-content .hero-page {
+      opacity: 1;
+    }
+
+    .hero {
+      max-width: 700px;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+    }
+
+    p {
+      font-size: 20px;
+      color: #ddd;
+      margin-bottom: 40px;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+    }
+
+    .cta-button {
+      padding: 16px 40px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #0d1b2a;
+      background: #00e5ff;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,229,255,0.4);
+      transition: background 0.3s ease, transform 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-button::before {
+      content: "";
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+      transition: left 0.6s ease-in-out;
+    }
+
+    .cta-button:hover {
+      background: #00bcd4;
+      transform: scale(1.05);
+    }
+
+    .cta-button:hover::before {
+      left: 100%;
+    }
+
+    .logo-zoom {
+      animation: zoomInOut 1s ease forwards;
+    }
+
+    @keyframes zoomInOut {
+      0%   { transform: scale(1); opacity: 1; }
+      100% { transform: scale(3); opacity: 0; }
+    }
+
+    .text-dissolve {
+      animation: textFadeUp 1s ease forwards;
+    }
+
+    @keyframes textFadeUp {
+      0%   { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-50px); }
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 32px; }
+      p  { font-size: 16px; }
+      .cta-button, .enter-button {
+        font-size: 18px;
+        padding: 14px 30px;
+      }
+      .loader-logo { width: 100px; }
+      .logo { width: 80px; top: 10px; left: 10px; }
+      .loading-text { font-size: 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sound -->
+  <audio id="cheer" src="https://cdn.pixabay.com/download/audio/2021/08/08/audio_22f486b80c.mp3?filename=crowd-cheer-6713.mp3" preload="auto"></audio>
+
+  <!-- Loading screen -->
+  <div id="loader">
+    <img class="logo" src="https://i.ibb.co/xtdjnBhk/e6f66627-8074-410a-a7d9-086a0c6fabdf.png" alt="The Jersey Shed Logo" />
+    <img class="loader-logo" src="https://i.ibb.co/BH4ZnNrB/Adobe-Express-file.png" alt="Spinning Logo" />
+    <div class="loading-text">
+      <span id="line1">The Best Jerseys</span>
+      <span id="line2">At The Best</span>
+      <span id="line3">Prices</span>
+    </div>
+    <button class="enter-button" onclick="revealHomepage()">Enter Store</button>
+  </div>
+
+  <!-- Hero page -->
+  <div class="hero-page">
+    <img class="logo" src="https://i.ibb.co/xtdjnBhk/e6f66627-8074-410a-a7d9-086a0c6fabdf.png" alt="The Jersey Shed Logo" />
+    <div class="hero">
+      <h1>Welcome to The Jersey Shed</h1>
+      <p>Wear the pride. Shop the latest 2025 NRL jerseys now.</p>
+      <button class="cta-button" onclick="goToProducts()">Browse Jerseys</button>
+    </div>
+  </div>
+
+  <script>
+    function revealHomepage() {
+      const loader = document.getElementById('loader');
+      const logo = document.querySelector('.loader-logo');
+      const textSpans = document.querySelectorAll('.loading-text span');
+
+      logo.classList.add('logo-zoom');
+      textSpans.forEach(span => span.classList.add('text-dissolve'));
+
+      setTimeout(() => {
+        loader.style.display = 'none';
+        document.body.classList.add('show-content');
+      }, 1200);
+    }
+
+    function goToProducts() {
+      window.location.href = "file:///Users/regan/Desktop/nrl%20jersey%20website/Untitleddocument.html"; // Replace with your real URL
+    }
+
+    document.getElementById('line3').addEventListener('animationend', () => {
+      const cheer = document.getElementById('cheer');
+      cheer.volume = 0.7;
+      cheer.play().catch(() => {});
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
